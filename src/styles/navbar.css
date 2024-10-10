@@ -1,0 +1,62 @@
+/* Navbar custom styles */
+.navbar-modern {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #0056b3;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  margin-left: 1.5rem;
+  color: #495057;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+.cart-icon {
+  font-size: 1.5rem;
+  color: #495057;
+  transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: #007bff;
+}
+
+.profile-popover {
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}

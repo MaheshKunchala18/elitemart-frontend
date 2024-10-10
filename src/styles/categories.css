@@ -1,0 +1,56 @@
+.categories-section {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.categories-list {
+  display: flex;
+  /* Use flexbox to create a row */
+  justify-content: center;
+  /* Center the categories */
+  align-items: center;
+  /* Vertically center items */
+  flex-wrap: nowrap;
+  /* Prevent wrapping */
+  gap: 2rem;
+  /* Space between items */
+}
+
+.category-item {
+  flex: 0 1 auto;
+  /* Allow items to size based on content */
+}
+
+.category-btn {
+  background-color: #fff;
+  /* White background */
+  border: 1px solid #007bff;
+  /* Border color */
+  border-radius: 15px;
+  /* Rounded corners */
+  padding: 1rem;
+  /* Padding */
+  text-align: center;
+  transition: all 0.3s ease;
+  /* Smooth transition */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Shadow effect */
+}
+
+.category-btn:hover {
+  background-color: #007bff;
+  /* Change background on hover */
+  color: white;
+  /* Change text color on hover */
+}
+
+.category-icon {
+  width: 50px;
+  /* Icon size */
+  height: 50px;
+  /* Icon size */
+  margin-bottom: 10px;
+  /* Space between icon and text */
+}

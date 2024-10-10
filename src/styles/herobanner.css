@@ -1,0 +1,84 @@
+/* Hero Banner Custom Styles */
+.hero-banner {
+  position: relative;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.shop-now-btn {
+  background-color: #ff7f50;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: #ff6347;
+}
+
+/* Abstract Shapes */
+.abstract-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.one {
+  width: 300px;
+  height: 300px;
+  background-color: #ffffff;
+  top: -100px;
+  right: -100px;
+}
+
+.two {
+  width: 200px;
+  height: 200px;
+  background-color: #ff7f50;
+  bottom: -50px;
+  left: -100px;
+}
+
+.three {
+  width: 150px;
+  height: 150px;
+  background-color: #ffffff;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .shop-now-btn {
+    font-size: 1rem;
+  }
+}
