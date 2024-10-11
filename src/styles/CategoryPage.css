@@ -1,0 +1,38 @@
+.product-card {
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Ensure the contents don't overflow */
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Scale up the card on hover */
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5); /* Blue box shadow on hover */
+    border: 2px solid #007bff; /* Blue border outline on hover */
+}
+
+.product-card img {
+    display: block;
+    transition: transform 0.3s; /* Smooth transition for image zoom */
+    width: 80%; /* Make the image take the full width of the card */
+    height: auto; /* Maintain the aspect ratio */
+    object-fit: cover; /* Crop the image to fill the card without stretching */
+    margin: 0 auto;
+}
+
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary button color */
+    border: none; /* Remove the button border */
+    transition: background-color 0.3s, transform 0.3s; /* Transition for button effects */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darken the button color on hover */
+    transform: translateY(-2px); /* Slightly move the button up on hover */
+}
+
+h2 {
+    margin-bottom: 20px; /* Space below the category title */
+    text-align: center; /* Center the title */
+    color: #333; /* Title color */
+}

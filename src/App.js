@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import ProfilePage from './pages/ProfilePage';
 import { AuthContext } from './context/AuthContext'; // For managing login state
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
@@ -21,7 +22,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="/product/:id" element={<ProductPage />} /> {/* Dynamic route for product details */}
+            <Route path="/category/:categoryName" element={<CategoryPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Routes>
