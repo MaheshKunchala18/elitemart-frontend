@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 import AuthButtons from './AuthButtons';
 import CartIcon from './CartIcon';
 import ProfilePopover from './ProfilePopover';
-import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion'; // Framer Motion for animations
 import '../styles/navbar.css';
 
 const NavigationBar = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const isLoggedIn = localStorage.getItem('userId') !== null;
 
   return (
     <motion.div

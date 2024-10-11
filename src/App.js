@@ -16,10 +16,7 @@ function App() {
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <Router>
         <div className="App">
-          {/* Navbar will be visible on all pages */}
           <NavigationBar />
-          
-          {/* Routes for different pages */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
