@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 import axios from "axios";
 import '../styles/loginsignup.css';
+import NavigationBar from '../components/Navbar';
 
 
 
@@ -107,114 +108,117 @@ function Signup() {
 
 
     return (
-        <Container fluid>
-            <Row style={{ height: '100vh' }}>
-                {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
-                <Col xs={12} sm={showImage ? 9 : 12} md={showImage ? 7 : 12} className="form-container">
-                    <Container>
-                        <Row className="justify-content-center">
-                            <Col className="text-center mt-2 mb-1">
-                                <img src="./LockIcon.png" alt="Lock Icon" width={64} />
-                                <h1 className="form-heading">Sign Up</h1>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-center">
-                            <Col md={8}>
-                                <Form onSubmit={handleSubmit}>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} controlId="formBasicFirstName">
+        <>
+            <NavigationBar />
+            <Container fluid>
+                <Row style={{ height: '100vh' }}>
+                    {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
+                    <Col xs={12} sm={showImage ? 9 : 12} md={showImage ? 7 : 12} className="form-container">
+                        <Container>
+                            <Row className="justify-content-center">
+                                <Col className="text-center mt-2 mb-1">
+                                    <img src="./LockIcon.png" alt="Lock Icon" width={64} />
+                                    <h1 className="form-heading">Sign Up</h1>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col md={8}>
+                                    <Form onSubmit={handleSubmit}>
+                                        <Row className="mb-3">
+                                            <Form.Group as={Col} controlId="formBasicFirstName">
+                                                <Form.Label>
+                                                    <span className="required-field">First Name</span> <span style={{ color: 'red' }}>*</span>
+                                                </Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Enter first name"
+                                                    value={firstName}
+                                                    onChange={(e) => setFirstName(e.target.value)}
+                                                    required
+                                                    className="input-container"
+                                                />
+                                            </Form.Group>
+                                            <Form.Group as={Col} controlId="formBasicLastName">
+                                                <Form.Label>
+                                                    <span className="required-field">Last Name</span> <span style={{ color: 'red' }}>*</span>
+                                                </Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Enter last name"
+                                                    value={lastName}
+                                                    onChange={(e) => setLastName(e.target.value)}
+                                                    required
+                                                    className="input-container"
+                                                />
+                                            </Form.Group>
+                                        </Row>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>
-                                                <span className="required-field">First Name</span> <span style={{ color: 'red' }}>*</span>
+                                                <span className="required-field">Email Address</span> <span style={{ color: 'red' }}>*</span>
                                             </Form.Label>
                                             <Form.Control
-                                                type="text"
-                                                placeholder="Enter first name"
-                                                value={firstName}
-                                                onChange={(e) => setFirstName(e.target.value)}
+                                                type="email"
+                                                placeholder="Enter email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
                                                 required
                                                 className="input-container"
                                             />
                                         </Form.Group>
-                                        <Form.Group as={Col} controlId="formBasicLastName">
-                                            <Form.Label>
-                                                <span className="required-field">Last Name</span> <span style={{ color: 'red' }}>*</span>
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Enter last name"
-                                                value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)}
-                                                required
-                                                className="input-container"
-                                            />
-                                        </Form.Group>
-                                    </Row>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>
-                                            <span className="required-field">Email Address</span> <span style={{ color: 'red' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="email"
-                                            placeholder="Enter email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            className="input-container"
-                                        />
-                                    </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                                        <Form.Label>
-                                            <span className="required-field">Password</span> <span style={{ color: 'red' }}>*</span>
-                                        </Form.Label>
-                                        <div style={{ position: 'relative' }}>
+                                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                                            <Form.Label>
+                                                <span className="required-field">Password</span> <span style={{ color: 'red' }}>*</span>
+                                            </Form.Label>
+                                            <div style={{ position: 'relative' }}>
+                                                <Form.Control
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    placeholder="Enter password"
+                                                    value={password}
+                                                    onChange={handlePasswordChange}
+                                                    required
+                                                    className={`input-container ${invalidInput ? 'shake' : ''}`}
+                                                />
+                                                <div className="password-toggle-icon" onClick={handleTogglePasswordVisibility}>
+                                                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                                </div>
+                                            </div>
+                                        </Form.Group>
+
+                                        <p style={{ marginBottom: '2px', fontSize: '15px', fontWeight: '400' }} >Password Strength</p>
+                                        <ProgressBar className="mb-3" striped variant={variant} now={(strength / 4) * 100} label={passwordStrengthMessage} />
+
+
+                                        <Form.Group className="mb-4" controlId="formConfirmPassword">
+                                            <Form.Label>
+                                                <span className="required-field">Confirm Password</span> <span style={{ color: 'red' }}>*</span>
+                                            </Form.Label>
                                             <Form.Control
-                                                type={showPassword ? 'text' : 'password'}
-                                                placeholder="Enter password"
-                                                value={password}
-                                                onChange={handlePasswordChange}
+                                                type="password"
+                                                placeholder="Confirm password"
+                                                value={confirmPassword}
+                                                onChange={(e) => setConfirmPassword(e.target.value)}
                                                 required
                                                 className={`input-container ${invalidInput ? 'shake' : ''}`}
                                             />
-                                            <div className="password-toggle-icon" onClick={handleTogglePasswordVisibility}>
-                                                {showPassword ? <FaEye /> : <FaEyeSlash />}
-                                            </div>
-                                        </div>
-                                    </Form.Group>
+                                        </Form.Group>
 
-                                    <p style={{marginBottom: '2px', fontSize: '15px', fontWeight: '400'}} >Password Strength</p>
-                                    <ProgressBar className="mb-3" striped variant={variant} now={(strength / 4) * 100} label={passwordStrengthMessage} />
-
-
-                                    <Form.Group className="mb-4" controlId="formConfirmPassword">
-                                        <Form.Label>
-                                            <span className="required-field">Confirm Password</span> <span style={{ color: 'red' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            placeholder="Confirm password"
-                                            value={confirmPassword}
-                                            onChange={(e) => setConfirmPassword(e.target.value)}
-                                            required
-                                            className={`input-container ${invalidInput ? 'shake' : ''}`}
-                                        />
-                                    </Form.Group>
-
-                                    <Button variant="primary" type="submit" size="lg" className="submit-button">
-                                        SIGN UP
-                                    </Button>
-                                </Form>
-                                <Row className="mt-3">
-                                    <Col className="text-center">
-                                        <p className="mb-2" style={{ fontSize: '1.5rem' }}>Already have an account? <Link to="/login">Log In</Link></p>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Col>
-            </Row>
-        </Container>
+                                        <Button variant="primary" type="submit" size="lg" className="submit-button">
+                                            SIGN UP
+                                        </Button>
+                                    </Form>
+                                    <Row className="mt-3">
+                                        <Col className="text-center">
+                                            <p className="mb-2" style={{ fontSize: '1.5rem' }}>Already have an account? <Link to="/login">Log In</Link></p>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
+        </>
     );
 }
 

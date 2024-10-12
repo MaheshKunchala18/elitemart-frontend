@@ -3,6 +3,7 @@ import HeroBanner from '../components/HeroBanner';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categories';
 import '../styles/homepage.css';
+import NavigationBar from '../components/Navbar';
 
 const HomePage = () => {
   // Sample data for products
@@ -15,6 +16,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
+      <NavigationBar />
       <Categories />
       <HeroBanner />
 

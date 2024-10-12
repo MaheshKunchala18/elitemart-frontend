@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/loginsignup.css';
+import NavigationBar from '../components/Navbar';
 
 
 
@@ -69,80 +70,83 @@ function Login() {
 
 
     return (
-        <Container fluid>
-            <Row style={{ height: '100vh' }}>
-                {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
-                <Col xs={12} sm={showImage ? 9 : 12} md={showImage ? 7 : 12} className="form-container">
-                    <Container>
-                        <Row className="justify-content-center">
-                            <Col className="text-center mb-3">
-                                <img src="./LockIcon.png" alt="Lock Icon" width={64} />
-                                <h1 className="form-heading">Log In</h1>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-center">
-                            <Col md={8}>
+        <>
+            <NavigationBar />
+            <Container fluid>
+                <Row style={{ height: '100vh' }}>
+                    {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
+                    <Col xs={12} sm={showImage ? 9 : 12} md={showImage ? 7 : 12} className="form-container">
+                        <Container>
+                            <Row className="justify-content-center">
+                                <Col className="text-center mb-3">
+                                    <img src="./LockIcon.png" alt="Lock Icon" width={64} />
+                                    <h1 className="form-heading">Log In</h1>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col md={8}>
 
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>
-                                            <span className="required-field">Email Address</span> <span style={{ color: 'red' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="email"
-                                            placeholder="Enter email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            className={`input-container ${invalidInput ? 'shake' : ''}`}
-                                        />
-                                    </Form.Group>
-
-
-                                    <Form.Group className="mb-4" controlId="formBasicPassword">
-                                        <Form.Label>
-                                            <span className="required-field">Password</span> <span style={{ color: 'red' }}>*</span>
-                                        </Form.Label>
-                                        <div style={{ position: 'relative' }}>
+                                    <Form onSubmit={handleSubmit}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>
+                                                <span className="required-field">Email Address</span> <span style={{ color: 'red' }}>*</span>
+                                            </Form.Label>
                                             <Form.Control
-                                                type={showPassword ? 'text' : 'password'}
-                                                placeholder="Enter password"
-                                                value={password}
-                                                onChange={handlePasswordChange}
+                                                type="email"
+                                                placeholder="Enter email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
                                                 required
                                                 className={`input-container ${invalidInput ? 'shake' : ''}`}
                                             />
-                                            <div className="password-toggle-icon" onClick={handleTogglePasswordVisibility}>
-                                                {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                        </Form.Group>
+
+
+                                        <Form.Group className="mb-4" controlId="formBasicPassword">
+                                            <Form.Label>
+                                                <span className="required-field">Password</span> <span style={{ color: 'red' }}>*</span>
+                                            </Form.Label>
+                                            <div style={{ position: 'relative' }}>
+                                                <Form.Control
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    placeholder="Enter password"
+                                                    value={password}
+                                                    onChange={handlePasswordChange}
+                                                    required
+                                                    className={`input-container ${invalidInput ? 'shake' : ''}`}
+                                                />
+                                                <div className="password-toggle-icon" onClick={handleTogglePasswordVisibility}>
+                                                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Form.Group>
+                                        </Form.Group>
 
 
-                                    <Form.Group className="mb-4" controlId="formBasicCheckbox">
-                                        <Form.Check
-                                            type="checkbox"
-                                            label={<span style={{ fontSize: '1.2rem' }}>Remember me</span>}
-                                            className='custom-checkbox'
-                                        />
-                                    </Form.Group>
+                                        <Form.Group className="mb-4" controlId="formBasicCheckbox">
+                                            <Form.Check
+                                                type="checkbox"
+                                                label={<span style={{ fontSize: '1.2rem' }}>Remember me</span>}
+                                                className='custom-checkbox'
+                                            />
+                                        </Form.Group>
 
-                                    <Button variant="primary" type="submit" size="lg" className="submit-button">
-                                        LOG IN
-                                    </Button>
-                                </Form>
+                                        <Button variant="primary" type="submit" size="lg" className="submit-button">
+                                            LOG IN
+                                        </Button>
+                                    </Form>
 
-                                <Row className="mt-3">
-                                    <Col className="text-center">
-                                        <p style={{ fontSize: '1.5rem' }}>Don't have an account? <Link to="/signup">Sign Up</Link></p>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Col>
-            </Row>
-        </Container>
+                                    <Row className="mt-3">
+                                        <Col className="text-center">
+                                            <p style={{ fontSize: '1.5rem' }}>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
+        </>
     );
 }
 
