@@ -67,12 +67,12 @@ const NavigationBar = () => {
               ) : (
                 <>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button className='mx-2' variant="outline-primary" onClick={() => navigate('/login')}>
+                    <Button className='mx-2 my-1' variant="outline-primary" onClick={() => navigate('/login')}>
                       Login
                     </Button>
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button className='mx-2' variant="outline-success" onClick={() => navigate('/signup')}>
+                    <Button className='mx-2 my-1' variant="outline-success" onClick={() => navigate('/signup')}>
                       Sign Up
                     </Button>
                   </motion.div>

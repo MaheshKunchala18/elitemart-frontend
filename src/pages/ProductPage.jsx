@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import '../styles/ProductPage.css';
@@ -30,7 +29,7 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     try {
       if (!userId) {
-        toast.error('You need to login first to add products to the cart.');
+        toast.warn('You need to login first to add products to the cart.');
         return;
       }
 

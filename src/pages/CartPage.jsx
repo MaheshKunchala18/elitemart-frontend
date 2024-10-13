@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import '../styles/CartPage.css';
-import NavigationBar from '../components/Navbar';
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -17,7 +18,7 @@ const CartPage = () => {
         const fetchCartItems = async () => {
             try {
                 const response = await axios.get(`${backendUrl}/cart/${userId}`);
-                console.log(response.data);
+                // console.log(response.data);
                 setCartItems(response.data.items);
                 setLoading(false);
             } catch (error) {
@@ -89,20 +90,54 @@ const CartPage = () => {
 
     // Handle place order (Add the products to the "My Orders page")
     const placeOrder = async () => {
-        // try {
-        //     await axios.post(`${backendUrl}/cart/clear`, { userId });
-        //     setCartItems([]); // Clear the cart after placing order
-        // } catch (error) {
-        //     console.error('Error placing order:', error);
-        // }
+        // Show a pending toast message
+        const pendingToastId = toast.loading('Placing your order...');
+
+        try {
+            // Prepare the data for placing the order
+            const orderData = {
+                userId,
+                items: cartItems // Send the entire array of cart items
+            };
+
+            // Post request to add the order
+            await axios.post(`${backendUrl}/orders`, orderData);
+
+            // Clear the cart after placing the order
+            await axios.post(`${backendUrl}/cart/clear`, { userId });
+
+            // Clear the cart in the frontend
+            setCartItems([]);
+
+            // Update the pending toast to a success message
+            toast.update(pendingToastId, {
+                render: 'Order placed successfully! Check in My Orders Page.',
+                type: 'success',
+                isLoading: false,
+                autoClose: 3000 // Show success toast for 3 seconds
+            });
+        } catch (error) {
+            console.error('Error placing order:', error);
+
+            // Update the pending toast to an error message
+            toast.update(pendingToastId, {
+                render: 'Error placing order. Please try again.',
+                type: 'error',
+                isLoading: false,
+                autoClose: 3000 // Show error toast for 3 seconds
+            });
+        }
     };
 
+
     const clearCart = async () => {
+        if(cartItems.length === 0) return;
+        
         try {
             await axios.post(`${backendUrl}/cart/clear`, { userId });
             setCartItems([]);
         } catch (error) {
-            console.error('Error placing order:', error);
+            console.error('Error clearing cart:', error);
         }
     };
 
@@ -130,6 +165,7 @@ const CartPage = () => {
     return (
         <>
             <NavigationBar />
+            <ToastContainer position="bottom-right" autoClose={3000} />
             <Container className="cart-page">
                 <Row>
                     <Col md={8}>

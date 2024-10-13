@@ -3,9 +3,9 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
-import '../styles/loginsignup.css';
+import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
-
+import '../styles/loginsignup.css';
 
 
 function Login() {
@@ -44,26 +44,65 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Show pending toast when the request is sent
+        const pendingToastId = toast.loading('Logging in...');
+
         try {
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }) // Send email and password to server
+                body: JSON.stringify({ email, password }),
             });
 
-            if (response.ok) { // Check if response status is 200
+            if (response.status === 200) {
                 const data = await response.json();
-                localStorage.setItem('userId', data.userId); // Save the user ID in local storage
-                setUserId(data.userId); // Update the context state
-                navigate('/'); // Redirects to home page
+                localStorage.setItem('userId', data.userId); // Save user ID
+                setUserId(data.userId);
+
+                // Dismiss pending toast and show success toast
+                toast.update(pendingToastId, {
+                    render: 'Logged in successfully',
+                    type: 'success',
+                    isLoading: false,
+                    autoClose: 2000, // Show success toast for 2 seconds
+                });
+
+                // Delay navigation so user can see the success message
+                setTimeout(() => {
+                    navigate('/'); // Redirect to home page
+                }, 2000);
+            } else if (response.status === 401) {
+                // Dismiss pending toast and show warning toast for invalid credentials
+                setTimeout(() => setInvalidInput(true), 1000); // Input boxes animate(shakes) for 1s
+                
+                toast.update(pendingToastId, {
+                    render: 'Invalid Credentials',
+                    type: 'warning',
+                    isLoading: false,
+                    autoClose: 3000, // Auto-close warning after 3 seconds
+                });
+                
+                setInvalidInput(false);
             } else {
-                console.error('Login failed');
-                setInvalidInput(true);
-                setTimeout(() => setInvalidInput(false), 1000);
+                // Handle other errors by displaying a generic error message
+                const errorData = await response.json();
+                toast.update(pendingToastId, {
+                    render: errorData.message || 'Login failed',
+                    type: 'error',
+                    isLoading: false,
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
+            // Dismiss pending toast and show error toast for any exceptions
+            toast.update(pendingToastId, {
+                render: 'Error logging in',
+                type: 'error',
+                isLoading: false,
+                autoClose: 3000,
+            });
             console.error('Error logging in:', error);
         }
     };
@@ -72,6 +111,7 @@ function Login() {
     return (
         <>
             <NavigationBar />
+            <ToastContainer position="bottom-right" autoClose={3000} />
             <Container fluid>
                 <Row style={{ height: '100vh' }}>
                     {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}

@@ -3,9 +3,10 @@ import { Form, Button, Container, Row, Col, ProgressBar } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import NavigationBar from '../components/Navbar';
 import axios from "axios";
 import '../styles/loginsignup.css';
-import NavigationBar from '../components/Navbar';
 
 
 
@@ -67,6 +68,8 @@ function Signup() {
             return;
         }
 
+        const pendingToastId = toast.loading('Creating account...');
+
         try {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
                 first_name: firstName,
@@ -77,18 +80,42 @@ function Signup() {
 
             if (response.status === 201) {
                 const userId = response.data.userId;
-                localStorage.setItem('userId', userId); // Store userId in local storage
-                await axios.post(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
-                    user_id: userId
+                localStorage.setItem('userId', userId);
+                // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
+                //     user_id: userId
+                // });
+                setUserId(userId);
+
+                toast.update(pendingToastId, {
+                    render: 'Account created successfully',
+                    type: 'success',
+                    isLoading: false,
+                    autoClose: 2000,
                 });
-                setUserId(userId); // Update context
-                navigate('/');
+
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000);
             } else {
                 console.error('Signup failed');
+
+                toast.update(pendingToastId, {
+                    render: 'Signup failed',
+                    type: 'error',
+                    isLoading: false,
+                    autoClose: 3000,
+                });
             }
 
         } catch (error) {
             console.error('Error signing up:', error);
+
+            toast.update(pendingToastId, {
+                render: 'Error signing up',
+                type: 'error',
+                isLoading: false,
+                autoClose: 3000,
+            });
         }
     };
 
@@ -106,10 +133,10 @@ function Signup() {
 
 
 
-
     return (
         <>
             <NavigationBar />
+            <ToastContainer position="bottom-right" autoClose={3000} />
             <Container fluid>
                 <Row style={{ height: '100vh' }}>
                     {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
