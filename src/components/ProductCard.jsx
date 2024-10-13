@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
         <Card.Img variant="top" src={product.image} alt={product.name} />
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
-          <Card.Text>${product.price}</Card.Text>
+          <Card.Text>${product.discountPrice}</Card.Text>
           <motion.button
             className="add-to-cart-btn"
             whileHover={{ scale: 1.1 }}

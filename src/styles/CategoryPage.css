@@ -36,3 +36,10 @@ h2 {
     text-align: center; /* Center the title */
     color: #333; /* Title color */
 }
+
+
+.original_price {
+    text-decoration: line-through;
+    color: gray;
+    margin-left: 8px;
+}

@@ -1,0 +1,5 @@
+.original_price {
+    text-decoration: line-through;
+    color: gray;
+    margin-left: 8px;
+}

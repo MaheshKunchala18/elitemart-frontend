@@ -17,7 +17,7 @@ const CartPage = () => {
         const fetchCartItems = async () => {
             try {
                 const response = await axios.get(`${backendUrl}/cart/${userId}`);
-                // console.log(response.data);
+                console.log(response.data);
                 setCartItems(response.data.items);
                 setLoading(false);
             } catch (error) {
@@ -87,11 +87,20 @@ const CartPage = () => {
         }
     };
 
-    // Handle place order (Clears the cart)
+    // Handle place order (Add the products to the "My Orders page")
     const placeOrder = async () => {
+        // try {
+        //     await axios.post(`${backendUrl}/cart/clear`, { userId });
+        //     setCartItems([]); // Clear the cart after placing order
+        // } catch (error) {
+        //     console.error('Error placing order:', error);
+        // }
+    };
+
+    const clearCart = async () => {
         try {
             await axios.post(`${backendUrl}/cart/clear`, { userId });
-            setCartItems([]); // Clear the cart UI after placing order
+            setCartItems([]);
         } catch (error) {
             console.error('Error placing order:', error);
         }
@@ -114,7 +123,9 @@ const CartPage = () => {
         );
     }
 
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.productId.price * item.quantity, 0);
+    const totalOriginalPrice = cartItems.reduce((acc, item) => acc + item.productId.originalPrice * item.quantity, 0);
+    const totalDiscountedPrice = cartItems.reduce((acc, item) => acc + item.productId.discountPrice * item.quantity, 0);
+    const totalSavings = totalOriginalPrice - totalDiscountedPrice;
 
     return (
         <>
@@ -129,12 +140,25 @@ const CartPage = () => {
                                         <Col xs={4}>
                                             <img src={item.productId.imageUrl} alt={item.productId.name} className="cart-item-image" />
                                         </Col>
+
                                         <Col xs={8}>
                                             <h5>{item.productId.name}</h5>
+
                                             <div className="price-section">
-                                                <span className="current-price">₹{item.productId.price}</span>
-                                                <span className="original-price">₹{item.productId.originalPrice}</span>
+                                                {/* Discount Price */}
+                                                <span className="current-price">₹{item.productId.discountPrice}</span>
+
+                                                {/* Original Price with strikethrough */}
+                                                <span className="original-price" style={{ textDecoration: 'line-through', color: 'gray' }}>
+                                                    ₹{item.productId.originalPrice}
+                                                </span>
+
+                                                {/* Discount Percentage */}
+                                                <span style={{ color: 'green', marginLeft: '10px' }}>
+                                                    {Math.round(((item.productId.originalPrice - item.productId.discountPrice) / item.productId.originalPrice) * 100)}% Off
+                                                </span>
                                             </div>
+
                                             <div className="quantity-section">
                                                 <Button
                                                     variant="outline-secondary"
@@ -161,20 +185,34 @@ const CartPage = () => {
                             ))}
                         </div>
                     </Col>
+
                     <Col md={4}>
                         <Card className="price-details-card">
                             <Card.Body>
                                 <h5>PRICE DETAILS</h5>
                                 <div className="price-summary">
-                                    <p>Price ({cartItems.length} items): <span>₹{totalPrice}</span></p>
-                                    <p>Total Amount: <span>₹{totalPrice}</span></p>
+                                    {/* Original price before discounts */}
+                                    <p>Price ({cartItems.length} items): <span>₹{totalOriginalPrice}</span></p>
+
+                                    {/* Discount amount in green */}
+                                    <p>Discount: <span style={{ color: 'green' }}>−₹{totalSavings}</span></p>
+
+                                    {/* Final total after discounts */}
+                                    <p>Total Amount: <span>₹{totalDiscountedPrice}</span></p>
+
+                                    {/* Display how much user saved */}
+                                    <p style={{ color: 'blue' }}>You will save ₹{totalSavings} on this order</p>
                                 </div>
-                                <Button variant="warning" className="place-order-btn" onClick={placeOrder}>
+                                <Button variant="success" className="place-order-btn mt-3" onClick={placeOrder}>
                                     PLACE ORDER
+                                </Button>
+                                <Button variant="danger" className="place-order-btn mt-3" onClick={clearCart}>
+                                    CLEAR CART
                                 </Button>
                             </Card.Body>
                         </Card>
                     </Col>
+
                 </Row>
             </Container>
         </>

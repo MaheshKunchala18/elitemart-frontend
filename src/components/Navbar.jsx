@@ -54,11 +54,9 @@ const NavigationBar = () => {
             <Nav className="align-items-center">
               {isLoggedIn ? (
                 <>
-                  <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                    <Button variant="outline-secondary" className='cart-icon' onClick={() => navigate('/cart')}>
-                      <FontAwesomeIcon icon={faShoppingCart} />
-                    </Button>
-                  </motion.div>
+                  <Button variant="outline-secondary" className='cart-icon' onClick={() => navigate('/cart')}>
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </Button>
 
                   <OverlayTrigger trigger="click" placement="bottom" overlay={profilePopover} rootClose>
                     <Button variant="link" className='profile-btn' >

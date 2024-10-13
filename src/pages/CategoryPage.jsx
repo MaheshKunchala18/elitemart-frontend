@@ -40,7 +40,10 @@ const CategoryPage = () => {
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
                                     <div className='mb-3'>
-                                        <div>Price: ₹{product.price}</div>
+                                        <div>
+                                            Price: ₹{product.discountPrice}
+                                            <span className='original_price'>₹{product.originalPrice}</span>
+                                        </div>
                                         <div>Rating: {product.rating} ★</div>
                                     </div>
                                     <Link to={`/product/${product._id}`} className="btn btn-primary">
