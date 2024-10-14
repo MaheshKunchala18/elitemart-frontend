@@ -90,7 +90,11 @@ const CartPage = () => {
 
     // Handle place order (Add the products to the "My Orders page")
     const placeOrder = async () => {
-        // Show a pending toast message
+        if (cartItems.length === 0) {
+            toast.info('Cart is empty!')
+            return;
+        }
+
         const pendingToastId = toast.loading('Placing your order...');
 
         try {
@@ -131,8 +135,11 @@ const CartPage = () => {
 
 
     const clearCart = async () => {
-        if(cartItems.length === 0) return;
-        
+        if (cartItems.length === 0) {
+            toast.info('Cart is empty!')
+            return;
+        }
+
         try {
             await axios.post(`${backendUrl}/cart/clear`, { userId });
             setCartItems([]);

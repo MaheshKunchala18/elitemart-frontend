@@ -81,9 +81,6 @@ function Signup() {
             if (response.status === 201) {
                 const userId = response.data.userId;
                 localStorage.setItem('userId', userId);
-                // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
-                //     user_id: userId
-                // });
                 setUserId(userId);
 
                 toast.update(pendingToastId, {

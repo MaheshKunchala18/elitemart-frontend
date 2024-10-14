@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
-import ProfilePage from './pages/ProfilePage';
-import CategoryPage from './pages/CategoryPage';
+import OrderPage from './pages/OrderPage';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/orders" element={<OrderPage />} />
         </Routes>
       </Router>
     </div>

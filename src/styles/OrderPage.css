@@ -1,0 +1,30 @@
+.order-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.order-page h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.order-product {
+    margin-top: 10px;
+}
+
+.order-product p {
+    margin: 5px 0;
+}
