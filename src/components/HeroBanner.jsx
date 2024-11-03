@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import '../styles/herobanner.css';
+import '../styles/HeroBanner.css';
 
 const HeroBanner = () => {
   return (

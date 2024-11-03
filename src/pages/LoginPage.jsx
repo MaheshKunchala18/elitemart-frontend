@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
-import '../styles/loginsignup.css';
+import '../styles/LoginSignup.css';
 
 
 function Login() {

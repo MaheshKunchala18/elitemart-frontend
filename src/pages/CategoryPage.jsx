@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import '../styles/CategoryPage.css';
-import NavigationBar from '../components/Navbar';
 
 const CategoryPage = () => {
     const { categoryName } = useParams(); // Get category from URL params
@@ -30,8 +30,8 @@ const CategoryPage = () => {
     return (
         <>
             <NavigationBar />
-            <Container>
-                {categoryName ? <h2 className='my-5' >{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)} Products</h2> : null}
+            <Container className='pt-5'>
+                {categoryName ? <h2 className='my-5 pt-4' >{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)} Products</h2> : null}
                 <Row>
                     {filteredProducts.map((product, index) => (
                         <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">

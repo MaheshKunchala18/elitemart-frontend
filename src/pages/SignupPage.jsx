@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
 import axios from "axios";
-import '../styles/loginsignup.css';
+import '../styles/LoginSignup.css';
 
 
 
@@ -134,8 +134,8 @@ function Signup() {
         <>
             <NavigationBar />
             <ToastContainer position="bottom-right" autoClose={3000} />
-            <Container fluid>
-                <Row style={{ height: '100vh' }}>
+            <Container fluid className='mt-5 pt-5'>
+                <Row style={{ height: '80vh' }}>
                     {showImage && (<Col className='bg-img' xs={12} sm={3} md={5} />)}
                     <Col xs={12} sm={showImage ? 9 : 12} md={showImage ? 7 : 12} className="form-container">
                         <Container>

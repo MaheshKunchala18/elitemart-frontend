@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import '../styles/homepage.css';
+// import '../styles/homepage.css';
 
 const ProductCard = ({ product }) => {
   return (

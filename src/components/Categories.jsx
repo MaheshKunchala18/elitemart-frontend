@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; // Import Bootstrap components
 import { useNavigate } from 'react-router-dom';
 import { categories } from '../data/data'; // Adjust path if needed
-import '../styles/categories.css';
+import '../styles/Categories.css';
 
 const Categories = () => {
   const navigate = useNavigate(); // Initialize the navigate function

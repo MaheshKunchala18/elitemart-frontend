@@ -2,8 +2,8 @@ import React from 'react';
 import HeroBanner from '../components/HeroBanner';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categories';
-import '../styles/homepage.css';
 import NavigationBar from '../components/Navbar';
+import '../styles/HomePage.css';
 
 const HomePage = () => {
   // Sample data for products
@@ -15,21 +15,23 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="homepage">
+    <>
       <NavigationBar />
-      <Categories />
-      <HeroBanner />
+      <div className="homepage mt-5 pt-4">
+        <Categories />
+        <HeroBanner />
 
-      <section className="featured-products">
-        <h2>Featured Products</h2>
-        <div className="products-grid">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
+        <section className="featured-products">
+          <h2>Featured Products</h2>
+          <div className="products-grid">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
 
-    </div>
+      </div>
+    </>
   );
 };
 

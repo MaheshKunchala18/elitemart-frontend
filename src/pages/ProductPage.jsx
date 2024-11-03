@@ -58,14 +58,14 @@ const ProductPage = () => {
     <>
       <NavigationBar />
       <ToastContainer position="bottom-right" autoClose={3000} />
-      <Container className="mt-4">
-        <Row>
+      <Container className="mt-5 pt-5">
+        <Row className="mt-4">
           <Col md={6}>
             <img src={product.imageUrl} alt={product.name} className="img-fluid" />
           </Col>
           <Col md={6}>
             <h1>{product.name}</h1>
-            <h3>₹{product.discountPrice} <span className='original_price'>₹{product.originalPrice}</span> </h3>
+            <h4>₹{product.discountPrice} <span className='original_price'>₹{product.originalPrice}</span> </h4>
             <p>{product.description}</p>
             <p>Rating: {product.rating} ★</p>
             <Button variant="success" className="me-2" onClick={handleAddToCart}>

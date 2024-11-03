@@ -173,8 +173,8 @@ const CartPage = () => {
         <>
             <NavigationBar />
             <ToastContainer position="bottom-right" autoClose={3000} />
-            <Container className="cart-page">
-                <Row>
+            <Container className="cart-page mt-5 pt-5">
+                <Row className="my-4 py-2">
                     <Col md={8}>
                         <div className="cart-items-section">
                             {cartItems.map((item) => (
