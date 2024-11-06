@@ -43,3 +43,93 @@ h2 {
     color: gray;
     margin-left: 8px;
 }
+
+
+
+
+
+
+
+/* .category-bar {
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+    background-color: #fff;
+}
+
+.category-bar .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+}
+
+.category-bar .nav-link:hover,
+.category-bar .nav-link.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+@media (max-width: 768px) {
+    .category-bar {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0.5rem;
+    }
+
+    .category-bar .nav-item {
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+} */
+
+
+
+
+
+
+.category-bar {
+    background-color: #f8f9fa; /* Light background for contrast */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* Style each category item */
+.category-item {
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.category-link {
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    color: #333;
+}
+
+.category-link:hover {
+    background-color: #007bff; /* Primary color for hover effect */
+    color: #fff; /* White text on hover */
+}
+
+/* Active state style */
+.category-link.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3); /* Subtle shadow on active item */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    .category-bar {
+        padding: 8px;
+    }
+    .category-link {
+        font-size: 0.9rem;
+    }
+}
