@@ -35,9 +35,22 @@ const CategoryPage = () => {
         fetchProducts();
     }, []);
 
-    const filteredProducts = products.filter((product) =>
-        product.category.toLowerCase() === (categoryName || '').toLowerCase()
-    );
+
+    let filteredProducts = [...products]
+        .map((product) => ({
+            ...product,
+            discountPercentage: Math.round(((product.originalPrice - product.discountPrice) / product.originalPrice) * 100),
+        }))
+
+    if (categoryName === 'top offers') {
+        filteredProducts.sort((a, b) => b.discountPercentage - a.discountPercentage); // Sort in descending order
+    }
+    else {
+        filteredProducts = filteredProducts.filter((product) =>
+            product.category.toLowerCase() === (categoryName || '').toLowerCase()
+        );
+    }
+
 
     const handleCategoryClick = (category) => {
         navigate(`/category/${category.toLowerCase()}`);
@@ -70,9 +83,11 @@ const CategoryPage = () => {
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
                                     <div className="mb-3">
+                                        {categoryName === 'top offers' ? <div>Category: {product.category}</div> : ''}
                                         <div>
                                             Price: ₹{product.discountPrice}
                                             <span className="original_price">₹{product.originalPrice}</span>
+                                            <span className="discount_percentage">{product.discountPercentage}% off</span>
                                         </div>
                                         <div>Rating: {product.rating} ★</div>
                                     </div>
