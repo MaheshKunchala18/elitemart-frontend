@@ -1,4 +1,3 @@
-/* Hero Banner Styles */
 .hero-banner {
   /* background-image: url('/images/hero-banner.jpg'); */
   background-size: cover;
@@ -31,18 +30,6 @@
 
 .shop-now-btn:hover {
   background-color: #0056b3;
-}
-
-/* Featured Products Styles */
-.featured-products {
-  padding: 3rem 2rem;
-  text-align: center;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
 }
 
 .product-card {
