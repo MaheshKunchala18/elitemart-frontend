@@ -109,11 +109,10 @@ const FeaturedProducts = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products`);
                 setProducts(response.data);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching products:', error);
-                setLoading(false);
             }
+            setLoading(false);
         };
 
         fetchProducts();
@@ -174,9 +173,12 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
 
             <div className="position-relative">
                 {loading ? (
-                    <Spinner animation="border" role="status" className="m-auto spinner-container">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                    <div className='d-flex justify-content-center my-4'>
+                        <Spinner animation="border" role="status" variant="primary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        <div className='fs-5 mx-2'>Loading Products...</div>
+                    </div>
                 ) : (
                     <>
                         <Button

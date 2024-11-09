@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
 import axios from 'axios';
@@ -8,24 +8,21 @@ import '../styles/CartPage.css';
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [empty, setEmpty] = useState(false);
+    const [cartEmpty, setCartEmpty] = useState(false);
 
     const userId = localStorage.getItem('userId');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-    // Fetch cart items from backend
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
                 const response = await axios.get(`${backendUrl}/cart/${userId}`);
-                // console.log(response.data);
                 setCartItems(response.data.items);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
-                setLoading(false);
-                setEmpty(true);
+                setCartEmpty(true);
             }
+            setLoading(false);
         };
 
         fetchCartItems();
@@ -153,14 +150,21 @@ const CartPage = () => {
         return (
             <>
                 <NavigationBar />
-                <p>Loading cart...</p>
+                <div className='min-vh-100 d-flex align-items-center justify-content-center'>
+                    <Spinner animation="grow" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                    <div className='fs-5 mx-2'>Loading Cart...</div>
+                </div>
             </>
         );
-    } else if (empty) {
+    } else if (cartEmpty) {
         return (
             <>
                 <NavigationBar />
-                <p>Cart is Empty!!</p>
+                <div className='min-vh-100 d-flex align-items-center justify-content-center'>
+                    <div className='fs-5 mx-2'>Cart is Empty!!</div>
+                </div>
             </>
         );
     }

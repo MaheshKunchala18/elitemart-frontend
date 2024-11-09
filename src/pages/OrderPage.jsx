@@ -17,12 +17,11 @@ const OrderPage = () => {
             try {
                 const response = await axios.get(`${backendUrl}/orders/${userId}`);
                 setOrders(response.data);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching orders:', error);
-                setLoading(false);
                 setEmpty(true);
             }
+            setLoading(false);
         };
 
         fetchOrders();
@@ -81,16 +80,12 @@ const OrderPage = () => {
                             <Card.Body>
                                 <h5>PRICE DETAILS</h5>
                                 <div className="price-summary">
-                                    {/* Original price before discounts */}
                                     <p>Price ({orders.length} items): <span>₹{totalOriginalPrice}</span></p>
 
-                                    {/* Discount amount in green */}
                                     <p>Discount: <span style={{ color: 'green' }}>−₹{totalSavings}</span></p>
 
-                                    {/* Final total after discounts */}
                                     <p>Total Amount: <span>₹{totalDiscountedPrice}</span></p>
 
-                                    {/* Display how much user saved */}
                                     <p style={{ color: 'blue' }}>You saved ₹{totalSavings} on these orders</p>
                                 </div>
                             </Card.Body>
