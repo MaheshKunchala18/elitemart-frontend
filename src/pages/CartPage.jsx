@@ -185,7 +185,7 @@ const CartPage = () => {
                                 <Card key={item.productId._id} className="cart-item-card mb-3">
                                     <Row className="align-items-center">
                                         <Col xs={4}>
-                                            <img src={item.productId.imageUrl} alt={item.productId.name} className="cart-item-image" />
+                                            <img src={item.productId.thumbnail} alt={item.productId.name} className="cart-item-image" />
                                         </Col>
 
                                         <Col xs={8}>

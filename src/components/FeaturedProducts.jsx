@@ -167,6 +167,10 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
         setIndex((prevIndex) => (prevIndex - itemsToShow + items.length) % items.length);
     };
 
+    const discountPercentage = (originalPrice, discountPrice) => {
+        return Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
+    };
+
     return (
         <div className="product-section">
             <h2 className="my-5 mx-5">{title}</h2>
@@ -204,7 +208,7 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
                                                         transition={{ duration: 0.8 }}
                                                     >
                                                         <Card className="mx-1 product-card hover-card">
-                                                            <Card.Img variant="top" src={items[productIndex].imageUrl} className="img" />
+                                                            <Card.Img variant="top" src={items[productIndex].thumbnail} className="img" />
                                                             <Card.Body>
                                                                 <Card.Title>{items[productIndex].name}</Card.Title>
                                                                 <div className="mb-3">
@@ -212,7 +216,7 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
                                                                     <div>
                                                                         Price: ₹{items[productIndex].discountPrice}
                                                                         <span className="original_price">₹{items[productIndex].originalPrice}</span>
-                                                                        <span className="discount_percentage">{items[productIndex].discountPercentage}% off</span>
+                                                                        <span className="discount_percentage">{discountPercentage(items[productIndex].originalPrice, items[productIndex].discountPrice)}% off</span>
                                                                     </div>
                                                                     <div>Rating: {items[productIndex].rating} ★</div>
                                                                 </div>

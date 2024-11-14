@@ -102,7 +102,7 @@ const CategoryPage = () => {
                         {filteredProducts.map((product, index) => (
                             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
                                 <Card className="product-card hover-card">
-                                    <Card.Img variant="top" src={product.imageUrl} className="img" />
+                                    <Card.Img variant="top" src={product.thumbnail} className="img" />
                                     <Card.Body>
                                         <Card.Title>{product.name}</Card.Title>
                                         <div className="mb-3">

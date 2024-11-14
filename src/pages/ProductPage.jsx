@@ -73,7 +73,7 @@ const ProductPage = () => {
           ) : (
             <Row className="mt-4">
               <Col md={6}>
-                <img src={product.imageUrl} alt={product.name} className="img-fluid" />
+                <img src={product.thumbnail} alt={product.name} className="img-fluid" />
               </Col>
               <Col md={6}>
                 <h1>{product.name}</h1>

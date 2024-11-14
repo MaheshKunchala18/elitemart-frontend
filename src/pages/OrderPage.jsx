@@ -51,7 +51,7 @@ const OrderPage = () => {
                                             <div className="order-items">
                                                 <Row key={order._id} className="align-items-center">
                                                     <Col xs={4}>
-                                                        <img src={order.productId.imageUrl} alt={order.productId.name} className="order-item-image" />
+                                                        <img src={order.productId.thumbnail} alt={order.productId.name} className="order-item-image" />
                                                     </Col>
                                                     <Col xs={8}>
                                                         <h5>{order.productId.name}</h5>
