@@ -44,16 +44,16 @@ const OrderPage = () => {
                                 <p>No orders found.</p>
                             ) : (
                                 orders.map((order) => (
-                                    <Card key={order._id} className="order-item-card mb-3">
+                                    <Card key={order._id} className="order-item-card mb-4">
                                         <Card.Body>
                                             <h6>Order ID: {order._id}</h6>
                                             <p>Order Date: {new Date(order.orderDate).toLocaleString('en-IN').toUpperCase()}</p>
                                             <div className="order-items">
                                                 <Row key={order._id} className="align-items-center">
-                                                    <Col xs={4}>
-                                                        <img src={order.productId.thumbnail} alt={order.productId.name} className="order-item-image" />
+                                                    <Col className="order-item-image mb-2" xs={12} sm={6} md={6} >
+                                                        <img src={order.productId.thumbnail} alt={order.productId.name} />
                                                     </Col>
-                                                    <Col xs={8}>
+                                                    <Col xs={12} sm={6} md={6} className="mt-2">
                                                         <h5>{order.productId.name}</h5>
                                                         <div className="price-section mt-3 mb-2">
                                                             <span className="current-price">₹{order.productId.discountPrice}</span>

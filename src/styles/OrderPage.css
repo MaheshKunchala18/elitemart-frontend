@@ -30,3 +30,12 @@
 .order-product p {
     margin: 5px 0;
 }
+
+.order-item-image {
+    text-align: center;
+    object-fit: contain;
+}
+
+.order-item-image img {
+    height: 150px;
+}

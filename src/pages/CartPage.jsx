@@ -95,7 +95,7 @@ const CartPage = () => {
         const pendingToastId = toast.loading('Placing your order...');
 
         try {
-            // Prepare the data for placing the order
+            // Data for placing the order
             const orderData = {
                 userId,
                 items: cartItems // Send the entire array of cart items
@@ -107,7 +107,7 @@ const CartPage = () => {
             // Clear the cart after placing the order
             await axios.post(`${backendUrl}/cart/clear`, { userId });
 
-            // Clear the cart in the frontend
+            // Clear the cart
             setCartItems([]);
 
             // Update the pending toast to a success message
@@ -182,13 +182,13 @@ const CartPage = () => {
                     <Col md={8}>
                         <div className="cart-items-section">
                             {cartItems.map((item) => (
-                                <Card key={item.productId._id} className="cart-item-card mb-3">
+                                <Card key={item.productId._id} className="cart-item-card mb-4">
                                     <Row className="align-items-center">
-                                        <Col xs={4}>
-                                            <img src={item.productId.thumbnail} alt={item.productId.name} className="cart-item-image" />
+                                        <Col className="cart-item-image mb-3" xs={12} sm={6}>
+                                            <img src={item.productId.thumbnail} alt={item.productId.name} />
                                         </Col>
 
-                                        <Col xs={8}>
+                                        <Col xs={12} sm={6} className="mt-2">
                                             <h5>{item.productId.name}</h5>
 
                                             <div className="price-section">
@@ -222,10 +222,10 @@ const CartPage = () => {
                                                 >
                                                     +
                                                 </Button>
+                                                <Button variant="link" className="remove-btn" onClick={() => removeItem(item.productId._id)}>
+                                                    Remove
+                                                </Button>
                                             </div>
-                                            <Button variant="link" className="remove-btn" onClick={() => removeItem(item.productId._id)}>
-                                                Remove
-                                            </Button>
                                         </Col>
                                     </Row>
                                 </Card>
