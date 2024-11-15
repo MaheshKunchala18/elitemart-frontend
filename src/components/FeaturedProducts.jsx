@@ -207,10 +207,12 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ duration: 0.8 }}
                                                     >
-                                                        <Card className="mx-1 product-card hover-card">
-                                                            <Card.Img variant="top" src={items[productIndex].thumbnail} className="img" />
+                                                        <Card className="mx-1 featured-product-card">
+                                                            <div className="featured-product-thumbnail">
+                                                                <Card.Img variant="top" src={items[productIndex].thumbnail} className="img" />
+                                                            </div>
                                                             <Card.Body>
-                                                                <Card.Title>{items[productIndex].name}</Card.Title>
+                                                                <Card.Title className="">{items[productIndex].name}</Card.Title>
                                                                 <div className="mb-3">
                                                                     <div>Category: {items[productIndex].category}</div>
                                                                     <div>
@@ -225,6 +227,7 @@ const CarouselWithControls = React.memo(({ items, title, loading }) => {
                                                                 </Link>
                                                             </Card.Body>
                                                         </Card>
+
                                                     </motion.div>
                                                 </Col>
                                             );
