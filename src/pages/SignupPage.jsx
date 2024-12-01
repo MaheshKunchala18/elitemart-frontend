@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, ProgressBar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { AuthContext } from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
 import axios from "axios";
@@ -23,7 +22,6 @@ function Signup() {
     const [showPassword, setShowPassword] = useState(false);  // Flips EyeIcon to show/hide password.
 
     const navigate = useNavigate();  // Redirects to another page upon successful signup
-    const { setUserId } = useContext(AuthContext);  // Assuming you have setUserId in context
 
 
     const calculateStrength = (password) => {
@@ -81,7 +79,6 @@ function Signup() {
             if (response.status === 201) {
                 const userId = response.data.userId;
                 localStorage.setItem('userId', userId);
-                setUserId(userId);
 
                 toast.update(pendingToastId, {
                     render: 'Account created successfully',

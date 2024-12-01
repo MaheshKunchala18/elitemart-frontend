@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { AuthContext } from '../context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
 import '../styles/LoginSignup.css';
@@ -15,7 +14,6 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);  // Flips EyeIcon to show/hide password.
 
     const [invalidInput, setInvalidInput] = useState(false);  // When Email and Password not match, boxes animate.
-    const { setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleResize = () => {
@@ -59,7 +57,6 @@ function Login() {
             if (response.status === 200) {
                 const data = await response.json();
                 localStorage.setItem('userId', data.userId); // Save user ID
-                setUserId(data.userId);
 
                 // Dismiss pending toast and show success toast
                 toast.update(pendingToastId, {

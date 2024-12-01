@@ -41,7 +41,7 @@ const NavigationBar = () => {
         </Navbar.Brand>
 
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <input type="text" placeholder="Search for products..." className="form-control" />
+          <input name='search' type="text" placeholder="Search for products..." className="form-control" />
         </motion.div>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
