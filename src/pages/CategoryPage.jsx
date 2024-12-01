@@ -117,7 +117,10 @@ const CategoryPage = () => {
                                             </div>
                                             <div>Rating: {product.rating} ★</div>
                                         </div>
-                                        <Link to={`/product/${product._id}`} className="btn btn-primary">
+
+                                        {/* target="_blank": This will open the link in a new tab or window. */}
+                                        {/* rel="noopener noreferrer": This is added for security reasons to prevent potential malicious activity when opening links in a new tab. */}
+                                        <Link to={`/product/${product._id}`} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
                                             View Details
                                         </Link>
                                     </Card.Body>
