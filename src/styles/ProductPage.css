@@ -3,3 +3,92 @@
     color: gray;
     margin-left: 8px;
 }
+
+.thumbnail-gallery {
+    display: flex;
+    flex-direction: column;
+    /* Height to show roughly 4 thumbnails */
+    height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+    border-right: 2px solid #c0c0c0;
+    border: 1px solid #e0e0e0;
+}
+
+/* Scrollbar styling - make it less intense */
+.thumbnail-gallery::-webkit-scrollbar {
+    width: 6px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-track {
+    background: #f8f8f8;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb:hover {
+    background-color: #d0d0d0;
+}
+
+.img-thumbnail {
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 2px solid #b0b0b0 !important; /* Brighter border for all images */
+    transition: border-color 0.2s ease;
+    width: 80% !important;
+    max-width: 200px !important;
+    /* height: 100px; */
+    /* object-fit:fill; */
+    /* padding: 1rem; */
+}
+
+.selected-thumbnail {
+    border-color: #0066cc !important;
+    border-width: 2px !important;
+}
+
+.main-product-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border: 2px solid #b0b0b0;
+    padding: 10px;
+    margin-left: 2rem;
+    max-width: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .thumbnail-gallery {
+        flex-direction: row;
+        height: auto;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        border-right: none;
+        border-bottom: 2px solid #c0c0c0;
+    }
+    
+    /* Horizontal scrollbar styling for mobile */
+    .thumbnail-gallery::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .img-thumbnail {
+        width: 80px !important;
+        height: 80px;
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+    
+    .main-product-image {
+        max-height: 350px;
+        margin-left: 0;
+        max-width: 100%;
+    }
+}

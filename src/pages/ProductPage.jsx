@@ -12,6 +12,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
   const userId = localStorage.getItem('userId');
   const quantity = 1;
 
@@ -20,6 +21,7 @@ const ProductPage = () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${productId}`);
         setProduct(response.data);
+        setSelectedImage(response.data.thumbnail);
       } catch (error) {
         console.error('Error fetching product:', error);
         setEmpty(true);
@@ -73,7 +75,35 @@ const ProductPage = () => {
           ) : (
             <Row className="mt-4">
               <Col md={6}>
-                <img src={product.thumbnail} alt={product.name} className="img-fluid" />
+                <Row>
+                  <Col xs={3} sm={3} md={3} lg={3} className="pe-0">
+                    {/* Thumbnails column */}
+                    <div className="thumbnail-gallery">
+                      {product.images && product.images.map((image, index) => (
+                        <img 
+                          key={index}
+                          src={image} 
+                          alt={`${product.name} - view ${index + 1}`}
+                          className={`img-thumbnail mb-2 ${selectedImage === image ? 'selected-thumbnail' : ''}`}
+                          onClick={() => setSelectedImage(image)}
+                        />
+                      ))}
+                      {/* Add thumbnail as well if it's not in the images array */}
+                      {product.thumbnail && !product.images?.includes(product.thumbnail) && (
+                        <img 
+                          src={product.thumbnail} 
+                          alt={`${product.name} - thumbnail`}
+                          className={`img-thumbnail mb-2 ${selectedImage === product.thumbnail ? 'selected-thumbnail' : ''}`}
+                          onClick={() => setSelectedImage(product.thumbnail)}
+                        />
+                      )}
+                    </div>
+                  </Col>
+                  <Col xs={9} sm={9} md={9} lg={9} className="ps-1">
+                    {/* Main product image */}
+                    <img src={selectedImage} alt={product.name} className="img-fluid main-product-image" />
+                  </Col>
+                </Row>
               </Col>
               <Col md={6}>
                 <h1>{product.name}</h1>
