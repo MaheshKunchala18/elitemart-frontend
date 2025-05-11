@@ -250,3 +250,47 @@
 .popover-body-text {
   font-size: 10px;
 }
+
+/* Mobile search button styles */
+.mobile-search-btn {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0;
+}
+
+/* Search modal styles */
+.search-modal .modal-content {
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.search-modal .modal-body {
+  padding: 20px;
+}
+
+.search-modal .search-results {
+  position: relative;
+  top: 0;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .navbar-modern .container {
+    flex-wrap: nowrap;
+  }
+  
+  .navbar-brand {
+    margin-right: 0;
+  }
+}

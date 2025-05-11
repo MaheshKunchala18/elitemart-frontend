@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import '../styles/ProductPage.css';
-
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -15,6 +15,8 @@ const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const userId = localStorage.getItem('userId');
   const quantity = 1;
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [thumbsToShow, setThumbsToShow] = useState(4);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,6 +33,24 @@ const ProductPage = () => {
 
     fetchProduct();
   }, [productId]);
+
+  useEffect(() => {
+    // Update the number of thumbnails to show based on screen size
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setThumbsToShow(4);
+      } else {
+        setThumbsToShow(4);
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleAddToCart = async () => {
     try {
@@ -56,11 +76,33 @@ const ProductPage = () => {
     }
   };
 
+  // Get all images including thumbnail
+  const getAllImages = () => {
+    let allImages = [...(product.images || [])];
+    if (product.thumbnail && !allImages.includes(product.thumbnail)) {
+      allImages.unshift(product.thumbnail);
+    }
+    return allImages;
+  };
+
+  const scrollUp = () => {
+    if (scrollPosition > 0) {
+      setScrollPosition(scrollPosition - 1);
+    }
+  };
+
+  const scrollDown = () => {
+    const allImages = getAllImages();
+    if (scrollPosition < allImages.length - thumbsToShow) {
+      setScrollPosition(scrollPosition + 1);
+    }
+  };
+
   return (
     <>
       <NavigationBar />
       <ToastContainer position="bottom-right" autoClose={3000} />
-      <Container className="mt-5 pt-5">
+      <Container className="mt-5 pt-5" fluid>
         {empty ?
           <div className='d-flex justify-content-center mt-5'>
             <div className='fs-5 mx-2'>Product not found!</div>
@@ -73,41 +115,47 @@ const ProductPage = () => {
               <div className='fs-5 mx-2'>Loading Product...</div>
             </div>
           ) : (
-            <Row className="mt-4">
-              <Col md={6}>
-                <Row>
-                  <Col xs={3} sm={3} md={3} lg={3} className="pe-0">
-                    {/* Thumbnails column */}
-                    <div className="thumbnail-gallery">
-                      {product.images && product.images.map((image, index) => (
-                        <img 
-                          key={index}
-                          src={image} 
-                          alt={`${product.name} - view ${index + 1}`}
-                          className={`img-thumbnail mb-2 ${selectedImage === image ? 'selected-thumbnail' : ''}`}
-                          onClick={() => setSelectedImage(image)}
-                        />
-                      ))}
-                      {/* Add thumbnail as well if it's not in the images array */}
-                      {product.thumbnail && !product.images?.includes(product.thumbnail) && (
-                        <img 
-                          src={product.thumbnail} 
-                          alt={`${product.name} - thumbnail`}
-                          className={`img-thumbnail mb-2 ${selectedImage === product.thumbnail ? 'selected-thumbnail' : ''}`}
-                          onClick={() => setSelectedImage(product.thumbnail)}
-                        />
-                      )}
-                    </div>
-                  </Col>
-                  <Col xs={9} sm={9} md={9} lg={9} className="ps-1">
-                    {/* Main product image */}
-                    <img src={selectedImage} alt={product.name} className="img-fluid main-product-image" />
-                  </Col>
-                </Row>
+            <Row className="mt-4 product-layout-row flex-column flex-md-row align-items-stretch">
+              {/* Thumbnail Column */}
+              <Col xs={12} md={2} className="d-flex flex-row flex-md-column align-items-end justify-content-center mb-3 mb-md-0">
+                <div className="thumbnail-nav-button thumbnail-nav-up d-flex justify-content-center align-items-center mb-2 mx-1" 
+                     onClick={scrollUp} 
+                     style={{opacity: scrollPosition <= 0 ? 0.5 : 1}}>
+                  <FaChevronUp />
+                </div>
+                <div className="thumbnail-gallery no-scrollbar d-flex flex-row flex-md-column align-items-center justify-content-center">
+                  {getAllImages().slice(scrollPosition, scrollPosition + thumbsToShow).map((image, index) => (
+                    <img 
+                      key={index + scrollPosition}
+                      src={image} 
+                      alt={`${product.name} - view ${index + scrollPosition + 1}`}
+                      className={`img-thumbnail my-1 ${selectedImage === image ? 'selected-thumbnail' : ''}`}
+                      style={{maxWidth: '60px', maxHeight: '60px', cursor: 'pointer'}}
+                      onClick={() => setSelectedImage(image)}
+                    />
+                  ))}
+                </div>
+                <div className="thumbnail-nav-button thumbnail-nav-down d-flex justify-content-center align-items-center mt-1 mx-1" 
+                     onClick={scrollDown} 
+                     style={{opacity: scrollPosition >= getAllImages().length - thumbsToShow ? 0.5 : 1}}>
+                  <FaChevronDown />
+                </div>
               </Col>
-              <Col md={6}>
-                <h1>{product.name}</h1>
-                <h4>₹{product.discountPrice} <span className='original_price'>₹{product.originalPrice}</span> </h4>
+
+              {/* Main Image Column */}
+              <Col xs={12} md={5} className="d-flex align-items-center justify-content-center mb-3 mb-md-0">
+                <img 
+                  src={selectedImage} 
+                  alt={product.name} 
+                  className="img-fluid main-product-image d-block"
+                  style={{maxHeight: '350px', width: '90%', maxWidth: '100%'}}
+                />
+              </Col>
+
+              {/* Product Details Column */}
+              <Col xs={12} md={4} className="mt-4 mt-md-0">
+                <h3>{product.name}</h3>
+                <h5>₹{product.discountPrice} <span className='original_price'>₹{product.originalPrice}</span></h5>
                 <p>{product.description}</p>
                 <p>Rating: {product.rating} ★</p>
                 <Button variant="success" className="me-2" onClick={handleAddToCart}>
