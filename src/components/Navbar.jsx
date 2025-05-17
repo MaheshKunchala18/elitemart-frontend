@@ -174,7 +174,8 @@ const NavigationBar = () => {
     <Popover id="popover-basic" className="profile-popover">
       <Popover.Header as="h3">Profile</Popover.Header>
       <Popover.Body className='popover-body-text'>
-        <Button href='/orders' className='mb-1' variant="outline-secondary"> My Orders </Button>
+        <Button href='/orders' className='mb-2' variant="outline-secondary"> My Orders </Button>
+        <Button href='/wishlist' className='my-1' variant="outline-secondary"> My Wishlist </Button>
         <Button className='mt-2' variant="danger" onClick={handleLogout}>Logout</Button>
       </Popover.Body>
     </Popover>
