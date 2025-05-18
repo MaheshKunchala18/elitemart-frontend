@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner, Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import NavigationBar from '../components/Navbar';
-import '../styles/WishlistPage.css';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaHeartBroken } from 'react-icons/fa';
+import NavigationBar from '../components/Navbar';
+import axios from 'axios';
+import '../styles/WishlistPage.css';
 
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(false);
+  const [clearing, setClearing] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -44,15 +46,24 @@ const WishlistPage = () => {
     }
   };
 
-  const moveToCart = async (productId) => {
+  const handleConfirmClear = async () => {
     try {
-      await axios.post(`${backendUrl}/cart`, { userId, productId, quantity: 1 });
-      await removeItem(productId);
-      toast.success('Moved to cart!');
+      setClearing(true);
+      await axios.post(`${backendUrl}/wishlist/clear`, { userId });
+      setWishlistItems([]);
+      setEmpty(true);
+      toast.success('Wishlist cleared');
+      setShowConfirm(false);
     } catch (err) {
-      console.error('Error moving to cart:', err);
-      toast.error('Error moving to cart');
+      console.error('Error clearing wishlist:', err);
+      toast.error('Error clearing wishlist');
+    } finally {
+      setClearing(false);
     }
+  };
+
+  const discountPercentage = (originalPrice, discountPrice) => {
+    return Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
   };
 
   if (loading) {
@@ -83,40 +94,70 @@ const WishlistPage = () => {
       <NavigationBar />
       <ToastContainer position="bottom-right" autoClose={3000} />
       <Container className="wishlist-page mt-5 pt-5">
+        <div className="d-flex justify-content-end mt-2 mb-4">
+          <Button variant="danger" onClick={() => setShowConfirm(true)} disabled={clearing}>
+            {clearing ? 'Clearing...' : 'Clear Wishlist'}
+          </Button>
+        </div>
         <Row className="g-4">
           {wishlistItems.map((product) => (
             <Col key={product._id} xs={12} sm={6} md={4} lg={3}>
-              <Card className="shadow-sm h-100 hover-card">
-                <div className="position-relative">
-                  <Card.Img variant="top" src={product.thumbnail} />
+              <Card className="hover-card">
+                <div className="product-img position-relative">
+                  <Card.Img variant="top" src={product.thumbnail} className="img" />
                   <Button
-                    variant="outline-danger"
+                    variant="danger"
                     size="sm"
                     className="position-absolute top-0 end-0 m-2"
+                    title="Remove from wishlist"
                     onClick={() => removeItem(product._id)}
+                    style={{ borderRadius: '50%' }}
                   >
-                    <FaHeartBroken />
+                    <FaHeartBroken color='white' />
                   </Button>
                 </div>
+
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="mb-2 fw-semibold fs-6 text-truncate">
                     {product.name}
                   </Card.Title>
-                  <Card.Text className="flex-grow-1">
-                    <span className="text-success fw-semibold">₹{product.discountPrice}</span>{' '}
+                  <Card.Text as="div" className="flex-grow-1">
+                    <span className="d-block mb-1">Category: {product.category}</span>
+                    <span> Price: </span>
+                    <span className="fw-semibold"> ₹{product.discountPrice}</span>{' '}
                     <span className="text-muted text-decoration-line-through">
                       ₹{product.originalPrice}
                     </span>
+                    <span className="discount_per">{discountPercentage(product.originalPrice, product.discountPrice)}% off</span>
+                    <span className="d-block mt-1 mb-2">Rating: {product.rating} ★</span>
                   </Card.Text>
-                  <Button variant="success" onClick={() => moveToCart(product._id)}>
-                    Move to Cart
-                  </Button>
+
+                  <Link to={`/product/${product._id}`} className="my-2 btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    View Details
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
-      </Container>
+        {/* Confirmation Modal */}
+        <Modal show={showConfirm} onHide={() => setShowConfirm(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Clear Wishlist</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to clear your entire wishlist? This action cannot be undone.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowConfirm(false)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmClear} disabled={clearing}>
+              {clearing ? 'Clearing...' : 'Clear'}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container >
     </>
   );
 };

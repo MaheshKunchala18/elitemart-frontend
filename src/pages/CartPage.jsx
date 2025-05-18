@@ -17,7 +17,13 @@ const CartPage = () => {
         const fetchCartItems = async () => {
             try {
                 const response = await axios.get(`${backendUrl}/cart/${userId}`);
-                setCartItems(response.data.items);
+                const items = response.data.items || [];
+                if (items.length === 0) {
+                    setCartEmpty(true);
+                } else {
+                    setCartEmpty(false);
+                }
+                setCartItems(items);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
                 setCartEmpty(true);

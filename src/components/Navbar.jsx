@@ -225,12 +225,12 @@ const NavigationBar = () => {
             <Nav className="align-items-center">
               {isLoggedIn ? (
                 <>
-                  <Button variant="outline-secondary" className='cart-icon' onClick={() => navigate('/cart')}>
+                  <Button variant="outline-secondary" title="View Cart" className='cart-icon' onClick={() => navigate('/cart')}>
                     <FontAwesomeIcon icon={faShoppingCart} />
                   </Button>
 
                   <OverlayTrigger trigger="click" placement="bottom" overlay={profilePopover} rootClose>
-                    <Button variant="link" className='profile-btn' >
+                    <Button variant="link" title="View Profile" className='profile-btn' >
                       <FontAwesomeIcon icon={faUserCircle} size="2x" />
                     </Button>
                   </OverlayTrigger>

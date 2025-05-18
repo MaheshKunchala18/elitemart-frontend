@@ -15,13 +15,19 @@ const OrderPage = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(`${backendUrl}/orders/${userId}`);
-                setOrders(response.data);
+                const { data } = await axios.get(`${backendUrl}/orders/${userId}`);
+
+                // Back-end may return either an array of items or an object with message indicating no orders found
+                const orderArray = Array.isArray(data) ? data : [];
+
+                setOrders(orderArray);
+                if (orderArray.length === 0) setEmpty(true);
             } catch (error) {
                 console.error('Error fetching orders:', error);
                 setEmpty(true);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
 
         fetchOrders();
