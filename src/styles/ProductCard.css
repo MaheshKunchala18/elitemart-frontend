@@ -10,6 +10,13 @@
     box-shadow: 0 0 12px 3px rgba(0, 123, 255, 0.6) !important;
 }
 
+.product-card .wishlist-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+}
+
 .product-thumbnail {
     text-align: center;
     padding: 10px;
@@ -40,14 +47,6 @@
 .discount_percentage {
     color: green;
     margin-left: 8px;
-}
-
-
-.product-card .wishlist-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    z-index: 2;
 }
 
 .wishlist-btn {

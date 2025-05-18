@@ -13,12 +13,12 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-  const userId = localStorage.getItem('userId');
-  const quantity = 1;
   const [scrollPosition, setScrollPosition] = useState(0);
   const [thumbsToShow, setThumbsToShow] = useState(4);
   const [inCart, setInCart] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
+  const userId = localStorage.getItem('userId');
+  const quantity = 1;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -199,33 +199,38 @@ const ProductPage = () => {
 
               {/* Main Image Column */}
               <Col xs={12} md={5} className="d-flex align-items-center justify-content-center mb-3 mb-md-0">
-                <img
-                  src={selectedImage}
-                  alt={product.name}
-                  className="img-fluid main-product-image d-block"
-                  style={{ maxHeight: '350px', width: '90%', maxWidth: '100%' }}
-                />
+                <div className="main-image-wrapper position-relative" style={{ width: '90%', maxWidth: '100%' }}>
+                  <img
+                    src={selectedImage}
+                    alt={product.name}
+                    className="img-fluid main-product-image d-block"
+                    style={{ maxHeight: '350px', width: '100%' }}
+                  />
+                  <Button
+                    variant={inWishlist ? 'danger' : 'light'}
+                    title={inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                    onClick={handleWishlistToggle}
+                    className="wishlist-btn-img"
+                    size="sm"
+                  >
+                    <FaHeart color={inWishlist ? '' : 'gray'} />
+                  </Button>
+                </div>
               </Col>
 
               {/* Product Details Column */}
-              <Col xs={12} md={4} className="mt-4 mt-md-0">
+              <Col xs={12} md={4} className="mt-4">
                 <h3>{product.name}</h3>
                 <h5>₹{product.discountPrice} <span className='original_price'>₹{product.originalPrice}</span></h5>
                 <p>{product.description}</p>
                 <p>Rating: {product.rating} ★</p>
-                <Button 
+                <Button
                   variant={inCart ? "success" : "success"}
                   onClick={handleAddToCart}
                   title={inCart ? 'Remove from Cart' : 'Add to Cart'}>
                   <FaShoppingCart className="me-1" /> {inCart ? 'Remove' : 'Add'}
                 </Button>
                 <Button variant="primary" className="mx-2">Buy Now</Button>
-                <Button 
-                  variant={inWishlist ? "danger" : "outline-danger"}
-                  onClick={handleWishlistToggle}
-                  title={inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}>
-                  <FaHeart />
-                </Button>
               </Col>
             </Row>
           )}
