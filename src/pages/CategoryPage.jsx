@@ -44,9 +44,14 @@ const CategoryPage = () => {
 
     let filteredProducts = [...products];
 
+    const discountPercentage = (originalPrice, discountPrice) => {
+        return Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
+    };
 
     if (categoryName === 'top offers') {
-        filteredProducts.sort((a, b) => b.discountPercentage - a.discountPercentage); // Sort in descending order
+        filteredProducts.sort((a, b) => 
+            discountPercentage(b.originalPrice, b.discountPrice) - discountPercentage(a.originalPrice, a.discountPrice)
+        ); // Sort in descending order
     }
     else {
         filteredProducts = filteredProducts.filter((product) =>
